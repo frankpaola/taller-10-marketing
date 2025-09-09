@@ -5,7 +5,764 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>🚀 AI Marketing Lab - Taller de Innovación</title>
     <style>
-        /* (El CSS se mantiene igual) */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --secondary-gradient: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            --success-gradient: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            --warning-gradient: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+            --dark-bg: #0f0f23;
+            --card-bg: rgba(255, 255, 255, 0.1);
+            --glass-bg: rgba(255, 255, 255, 0.05);
+            --text-light: #e8e8e8;
+            --text-dark: #2d3748;
+            --neon-blue: #00d4ff;
+            --neon-pink: #ff0080;
+            --neon-green: #00ff88;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--dark-bg);
+            color: var(--text-light);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Animated background */
+        .bg-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.3;
+        }
+
+        .bg-animation::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: 
+                radial-gradient(circle, var(--neon-blue) 1px, transparent 1px),
+                radial-gradient(circle, var(--neon-pink) 1px, transparent 1px);
+            background-size: 50px 50px, 100px 100px;
+            background-position: 0 0, 25px 25px;
+            animation: float 20s linear infinite;
+        }
+
+        @keyframes float {
+            0% { transform: translate(0, 0) rotate(0deg); }
+            100% { transform: translate(-50px, -50px) rotate(360deg); }
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        .header {
+            text-align: center;
+            padding: 40px 0;
+            position: relative;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 400px;
+            height: 400px;
+            background: var(--primary-gradient);
+            border-radius: 50%;
+            filter: blur(100px);
+            opacity: 0.3;
+            z-index: -1;
+        }
+
+        .header h1 {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 900;
+            background: linear-gradient(135deg, var(--neon-blue), var(--neon-pink), var(--neon-green));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 20px;
+            text-shadow: 0 0 50px rgba(0, 212, 255, 0.5);
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes glow {
+            from { filter: brightness(1); }
+            to { filter: brightness(1.2); }
+        }
+
+        .header p {
+            font-size: 1.5rem;
+            opacity: 0.9;
+            max-width: 800px;
+            margin: 0 auto 30px;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 40px 0;
+        }
+
+        .stat-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 30px;
+            text-align: center;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: conic-gradient(from 0deg, transparent, var(--neon-blue), transparent);
+            animation: rotate 4s linear infinite;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .stat-card:hover::before {
+            opacity: 0.3;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-10px) scale(1.05);
+            box-shadow: 0 20px 40px rgba(0, 212, 255, 0.3);
+        }
+
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 900;
+            background: var(--success-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .stat-label {
+            font-size: 1rem;
+            opacity: 0.8;
+            margin-top: 10px;
+        }
+
+        /* Workshop sections */
+        .workshop-section {
+            margin: 60px 0;
+            padding: 40px;
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border-radius: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .workshop-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            animation: shine 3s ease-in-out infinite;
+        }
+
+        @keyframes shine {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 30px;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: var(--secondary-gradient);
+            border-radius: 2px;
+        }
+
+        .activities-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .activity-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(20px);
+            border-radius: 25px;
+            padding: 40px;
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+            position: relative;
+            cursor: pointer;
+        }
+
+        .activity-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--neon-blue);
+            box-shadow: 0 25px 50px rgba(0, 212, 255, 0.2);
+        }
+
+        .activity-number {
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            width: 60px;
+            height: 60px;
+            background: var(--secondary-gradient);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 900;
+            font-size: 1.5rem;
+            color: white;
+        }
+
+        .activity-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: var(--neon-blue);
+        }
+
+        .activity-description {
+            font-size: 1rem;
+            opacity: 0.9;
+            margin-bottom: 20px;
+        }
+
+        .ai-models {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .ai-model {
+            background: var(--primary-gradient);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .ai-model:hover {
+            transform: scale(1.1);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        /* Company selector */
+        .company-selector {
+            margin: 40px 0;
+        }
+
+        .companies-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            max-height: 600px;
+            overflow-y: auto;
+            padding: 20px;
+            background: var(--glass-bg);
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .companies-grid::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .companies-grid::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+        }
+
+        .companies-grid::-webkit-scrollbar-thumb {
+            background: var(--neon-blue);
+            border-radius: 4px;
+        }
+
+        .company-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(10px);
+            padding: 20px;
+            border-radius: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .company-card:hover {
+            border-color: var(--neon-green);
+            transform: scale(1.02);
+            box-shadow: 0 10px 30px rgba(0, 255, 136, 0.2);
+        }
+
+        .company-name {
+            font-weight: 700;
+            font-size: 1.1rem;
+            color: var(--neon-green);
+            margin-bottom: 5px;
+        }
+
+        .company-type {
+            font-size: 0.9rem;
+            opacity: 0.8;
+            margin-bottom: 10px;
+        }
+
+        .company-status {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .status-consolidado {
+            background: var(--success-gradient);
+            color: white;
+        }
+
+        .status-emergente {
+            background: var(--warning-gradient);
+            color: white;
+        }
+
+        .status-antiguo {
+            background: var(--secondary-gradient);
+            color: white;
+        }
+
+        /* Prompt generator */
+        .prompt-generator {
+            background: var(--dark-bg);
+            border-radius: 20px;
+            padding: 30px;
+            border: 2px solid var(--neon-pink);
+            margin: 30px 0;
+        }
+
+        .prompt-output {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 15px;
+            padding: 25px;
+            border-left: 4px solid var(--neon-blue);
+            margin: 20px 0;
+            font-family: 'Courier New', monospace;
+            white-space: pre-wrap;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .btn {
+            background: var(--primary-gradient);
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 25px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .btn:hover::before {
+            left: 100%;
+        }
+
+        /* Final campaign section */
+        .campaign-section {
+            background: linear-gradient(135deg, rgba(255, 0, 128, 0.1), rgba(0, 212, 255, 0.1));
+            border-radius: 30px;
+            padding: 60px 40px;
+            text-align: center;
+            margin: 60px 0;
+            border: 2px solid rgba(255, 0, 128, 0.3);
+        }
+
+        .campaign-title {
+            font-size: 3rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, var(--neon-pink), var(--neon-blue));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 30px;
+        }
+
+        .campaign-steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .campaign-step {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            padding: 30px;
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .step-icon {
+            font-size: 3rem;
+            margin-bottom: 20px;
+        }
+
+        .step-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: var(--neon-blue);
+        }
+
+        /* Creative Tools Styles */
+        .creative-tools-section {
+            text-align: left;
+        }
+
+        .tool-tabs {
+            border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+            margin-bottom: 30px;
+        }
+
+        .tool-tab {
+            background: transparent;
+            border: none;
+            color: var(--text-light);
+            padding: 15px 25px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            border-radius: 10px 10px 0 0;
+            transition: all 0.3s ease;
+            margin-right: 10px;
+        }
+
+        .tool-tab.active {
+            background: var(--primary-gradient);
+            color: white;
+        }
+
+        .tool-tab:hover:not(.active) {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .tool-content {
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        .tool-header {
+            margin-bottom: 30px;
+        }
+
+        .input-group {
+            margin-bottom: 25px;
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: 600;
+            color: var(--neon-blue);
+        }
+
+        .campaign-select {
+            width: 100%;
+            padding: 15px;
+            border-radius: 10px;
+            background: var(--card-bg);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            color: var(--text-light);
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .campaign-select:focus {
+            border-color: var(--neon-blue);
+            outline: none;
+        }
+
+        .campaign-textarea {
+            width: 100%;
+            padding: 15px;
+            border-radius: 10px;
+            background: var(--card-bg);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            color: var(--text-light);
+            font-size: 1rem;
+            font-family: 'Inter', sans-serif;
+            resize: vertical;
+            transition: border-color 0.3s ease;
+        }
+
+        .campaign-textarea:focus {
+            border-color: var(--neon-green);
+            outline: none;
+        }
+
+        .campaign-btn {
+            font-size: 1.2rem;
+            padding: 20px 40px;
+            margin: 30px 0;
+        }
+
+        .prompt-result {
+            margin-top: 30px;
+            padding: 30px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 20px;
+            border: 2px solid var(--neon-pink);
+        }
+
+        .prompt-section {
+            margin-bottom: 30px;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            border-left: 4px solid var(--neon-green);
+        }
+
+        .prompt-section h5 {
+            margin-bottom: 15px;
+            font-size: 1.2rem;
+            font-weight: 700;
+        }
+
+        .video-prompts-container {
+            display: grid;
+            gap: 25px;
+        }
+
+        /* Video Planning Styles */
+        .scene-input {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 15px;
+            align-items: center;
+        }
+
+        .scene-description {
+            flex: 1;
+            padding: 12px 15px;
+            border-radius: 8px;
+            background: var(--card-bg);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: var(--text-light);
+        }
+
+        .scene-duration {
+            padding: 12px 15px;
+            border-radius: 8px;
+            background: var(--card-bg);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: var(--text-light);
+        }
+
+        .add-scene-btn {
+            background: var(--success-gradient);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .add-scene-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(79, 172, 254, 0.4);
+        }
+
+        /* Checkbox Styles */
+        .checkbox-container {
+            display: block;
+            position: relative;
+            padding-left: 35px;
+            margin-bottom: 12px;
+            cursor: pointer;
+            font-size: 1rem;
+            user-select: none;
+            color: var(--text-light);
+        }
+
+        .checkbox-container input {
+            position: absolute;
+            opacity: 0;
+            cursor: pointer;
+            height: 0;
+            width: 0;
+        }
+
+        .checkmark {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 25px;
+            width: 25px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border: 2px solid var(--neon-blue);
+            border-radius: 5px;
+            transition: all 0.3s ease;
+        }
+
+        .checkbox-container:hover input ~ .checkmark {
+            background-color: rgba(0, 212, 255, 0.2);
+        }
+
+        .checkbox-container input:checked ~ .checkmark {
+            background: var(--primary-gradient);
+        }
+
+        .checkmark:after {
+            content: "";
+            position: absolute;
+            display: none;
+        }
+
+        .checkbox-container input:checked ~ .checkmark:after {
+            display: block;
+        }
+
+        .checkbox-container .checkmark:after {
+            left: 8px;
+            top: 4px;
+            width: 6px;
+            height: 12px;
+            border: solid white;
+            border-width: 0 3px 3px 0;
+            transform: rotate(45deg);
+        }
+
+        .ai-tools-selection {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 20px;
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 15px;
+            }
+            
+            .activities-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .companies-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+        }
+
+        /* Loading animation */
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: var(--neon-blue);
+            animation: spin 1s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .fade-in {
+            animation: fadeIn 0.6s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
     </style>
 </head>
 <body>
@@ -24,8 +781,8 @@
                     <div class="stat-label">Empresas Innovadoras</div>
                 </div>
                 <div class="stat-card">
-                    <div class="stat-number">7</div>
-                    <div class="stat-label">Tipos de Negocios</div>
+                    <div class="stat-number">100%</div>
+                    <div class="stat-label">Enfoque Sostenible</div>
                 </div>
                 <div class="stat-card">
                     <div class="stat-number">4</div>
@@ -33,7 +790,7 @@
                 </div>
                 <div class="stat-card">
                     <div class="stat-number">∞</div>
-                    <div class="stat-label">Posibilidades</div>
+                    <div class="stat-label">Posibilidades Creativas</div>
                 </div>
             </div>
         </header>
@@ -84,8 +841,8 @@
 
         <!-- Company Database -->
         <section class="workshop-section">
-            <h2 class="section-title">🏢 Base de Datos Empresarial</h2>
-            <p style="font-size: 1.2rem; margin-bottom: 20px;">Explora las 8 empresas innovadoras con las que trabajarás:</p>
+            <h2 class="section-title">🌱 Emprendimientos Sostenibles e Innovadores</h2>
+            <p style="font-size: 1.2rem; margin-bottom: 20px;">Conoce las 8 empresas emergentes con enfoque ecológico y sostenible con las que trabajarás:</p>
             
             <div class="company-selector">
                 <div class="companies-grid" id="companiesGrid">
@@ -146,23 +903,192 @@
             <h2 class="campaign-title">🎬 CAMPAÑA DE MARKETING FINAL</h2>
             <p style="font-size: 1.3rem; margin-bottom: 40px;">Una vez completadas las 4 actividades principales, es hora de crear la campaña que conquistará el mercado:</p>
             
-            <div class="campaign-steps">
-                <div class="campaign-step">
-                    <div class="step-icon">🎨</div>
-                    <div class="step-title">Piezas Gráficas con IA</div>
-                    <div>Diseña elementos visuales impactantes para promocionar el producto seleccionado usando herramientas de IA como DALL-E, Midjourney o Stable Diffusion</div>
+            <!-- Creative Tools Section -->
+            <div class="creative-tools-section" style="margin: 40px 0;">
+                <div class="tool-tabs" style="display: flex; justify-content: center; margin-bottom: 30px; flex-wrap: wrap; gap: 10px;">
+                    <button class="tool-tab active" onclick="switchTool('graphics')" id="graphicsTab">🎨 Piezas Gráficas</button>
+                    <button class="tool-tab" onclick="switchTool('video')" id="videoTab">🎥 Video Promocional</button>
+                    <button class="tool-tab" onclick="switchTool('strategy')" id="strategyTab">📱 Estrategia Digital</button>
                 </div>
                 
-                <div class="campaign-step">
-                    <div class="step-icon">🎥</div>
-                    <div class="step-title">Video Promocional</div>
-                    <div>Crea un video dinámico para redes sociales utilizando IA para guiones, voces y efectos visuales</div>
+                <!-- Graphics Tool -->
+                <div id="graphicsTool" class="tool-content">
+                    <div class="tool-header">
+                        <h3 style="color: var(--neon-pink); font-size: 2rem; margin-bottom: 20px;">🎨 Generador de Piezas Gráficas</h3>
+                        <p style="font-size: 1.1rem; margin-bottom: 30px;">Describe tu idea visual y selecciona la herramienta de IA para generar el prompt perfecto:</p>
+                    </div>
+                    
+                    <div class="input-group">
+                        <label>Selecciona tu herramienta de IA gráfica:</label>
+                        <select id="graphicsAI" class="campaign-select">
+                            <option value="midjourney">Midjourney</option>
+                            <option value="dall-e">DALL-E 3</option>
+                            <option value="stable-diffusion">Stable Diffusion</option>
+                            <option value="leonardo">Leonardo AI</option>
+                        </select>
+                    </div>
+                    
+                    <div class="input-group">
+                        <label>Describe tu pieza publicitaria (producto, estilo, colores, ambiente, etc.):</label>
+                        <textarea id="graphicsDescription" class="campaign-textarea" rows="4" placeholder="Ejemplo: Una imagen vibrante de lápices infinitos con colores tropicales, ambiente futurista, estilo fotografía profesional, iluminación natural, fondo tecnológico..."></textarea>
+                    </div>
+                    
+                    <div class="input-group">
+                        <label>Tipo de pieza publicitaria:</label>
+                        <select id="adType" class="campaign-select">
+                            <option value="instagram-post">Post de Instagram (1080x1080)</option>
+                            <option value="instagram-story">Historia de Instagram (1080x1920)</option>
+                            <option value="facebook-ad">Anuncio de Facebook (1200x628)</option>
+                            <option value="banner-web">Banner Web (728x90)</option>
+                            <option value="poster">Póster Promocional (A3)</option>
+                            <option value="flyer">Volante (A5)</option>
+                        </select>
+                    </div>
+                    
+                    <button class="btn campaign-btn" onclick="generateGraphicsPrompt()">
+                        <span id="graphicsGenText">🎨 Generar Prompt para Gráficos</span>
+                        <span id="graphicsGenLoader" class="loading hidden"></span>
+                    </button>
+                    
+                    <div class="prompt-result" id="graphicsResult" style="display: none;">
+                        <h4 style="color: var(--neon-green); margin-bottom: 15px;">📋 Tu Prompt Generado:</h4>
+                        <div class="prompt-output" id="graphicsPromptOutput"></div>
+                        <button class="btn" onclick="copyGraphicsPrompt()" style="margin-top: 15px; background: var(--success-gradient);">
+                            📋 Copiar Prompt
+                        </button>
+                    </div>
                 </div>
                 
-                <div class="campaign-step">
-                    <div class="step-icon">📱</div>
-                    <div class="step-title">Estrategia Digital</div>
-                    <div>Desarrolla la estrategia de distribución en redes sociales y plataformas digitales</div>
+                <!-- Video Tool -->
+                <div id="videoTool" class="tool-content" style="display: none;">
+                    <div class="tool-header">
+                        <h3 style="color: var(--neon-blue); font-size: 2rem; margin-bottom: 20px;">🎥 Creador de Videos Promocionales</h3>
+                        <p style="font-size: 1.1rem; margin-bottom: 30px;">Describe tu video paso a paso y generaremos todos los prompts necesarios:</p>
+                    </div>
+                    
+                    <div class="video-planning" style="display: grid; gap: 25px;">
+                        <div class="input-group">
+                            <label>Duración del video:</label>
+                            <select id="videoDuration" class="campaign-select">
+                                <option value="15">15 segundos (TikTok/Instagram Reels)</option>
+                                <option value="30">30 segundos (Instagram/Facebook)</option>
+                                <option value="60">60 segundos (YouTube Shorts)</option>
+                                <option value="90">90 segundos (YouTube)</option>
+                            </select>
+                        </div>
+                        
+                        <div class="input-group">
+                            <label>Describe la historia/concepto de tu video:</label>
+                            <textarea id="videoStory" class="campaign-textarea" rows="4" placeholder="Ejemplo: Un estudiante usa un lápice Ecoinfinty durante todo el año escolar, el lápiz nunca se acaba, otros estudiantes se asombran, termina recomendándolo por su durabilidad y diseño..."></textarea>
+                        </div>
+                        
+                        <div class="input-group">
+                            <label>Escenas del video (describe cada escena por separado):</label>
+                            <div id="scenesContainer">
+                                <div class="scene-input">
+                                    <input type="text" placeholder="Escena 1: Descripción..." class="scene-description">
+                                    <input type="number" placeholder="Segundos" min="1" max="30" class="scene-duration" style="width: 100px;">
+                                </div>
+                            </div>
+                            <button type="button" onclick="addScene()" class="add-scene-btn">+ Agregar Escena</button>
+                        </div>
+                        
+                        <div class="input-group">
+                            <label>Tipo de voz para el video:</label>
+                            <select id="voiceType" class="campaign-select">
+                                <option value="young-energetic">Voz joven y energética</option>
+                                <option value="professional">Voz profesional y confiable</option>
+                                <option value="friendly">Voz amigable y cálida</option>
+                                <option value="narrator">Voz de narrador épico</option>
+                                <option value="no-voice">Sin voz (solo música)</option>
+                            </select>
+                        </div>
+                        
+                        <div class="input-group">
+                            <label>Herramientas de IA para el video:</label>
+                            <div class="ai-tools-selection" style="display: flex; flex-wrap: wrap; gap: 10px; margin-top: 10px;">
+                                <label class="checkbox-container">
+                                    <input type="checkbox" id="useSora" checked> Sora (OpenAI) - Videos
+                                    <span class="checkmark"></span>
+                                </label>
+                                <label class="checkbox-container">
+                                    <input type="checkbox" id="useRunway" checked> Runway ML - Efectos
+                                    <span class="checkmark"></span>
+                                </label>
+                                <label class="checkbox-container">
+                                    <input type="checkbox" id="useElevenLabs" checked> ElevenLabs - Voz
+                                    <span class="checkmark"></span>
+                                </label>
+                                <label class="checkbox-container">
+                                    <input type="checkbox" id="useMidjourney"> Midjourney - Imágenes complementarias
+                                    <span class="checkmark"></span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <button class="btn campaign-btn" onclick="generateVideoPrompts()">
+                        <span id="videoGenText">🎬 Generar Plan Completo de Video</span>
+                        <span id="videoGenLoader" class="loading hidden"></span>
+                    </button>
+                    
+                    <div class="prompt-result" id="videoResult" style="display: none;">
+                        <h4 style="color: var(--neon-pink); margin-bottom: 20px;">🎬 Tu Plan de Producción Completo:</h4>
+                        
+                        <div class="video-prompts-container">
+                            <div class="prompt-section" id="scriptSection">
+                                <h5 style="color: var(--neon-green);">📝 Guión del Video</h5>
+                                <div class="prompt-output" id="scriptOutput"></div>
+                            </div>
+                            
+                            <div class="prompt-section" id="visualSection">
+                                <h5 style="color: var(--neon-blue);">🎥 Prompts para Escenas Visuales</h5>
+                                <div class="prompt-output" id="visualOutput"></div>
+                            </div>
+                            
+                            <div class="prompt-section" id="voiceSection">
+                                <h5 style="color: var(--neon-pink);">🎤 Configuración de Voz</h5>
+                                <div class="prompt-output" id="voiceOutput"></div>
+                            </div>
+                            
+                            <div class="prompt-section" id="effectsSection">
+                                <h5 style="color: var(--warning-color);">✨ Efectos y Transiciones</h5>
+                                <div class="prompt-output" id="effectsOutput"></div>
+                            </div>
+                        </div>
+                        
+                        <button class="btn" onclick="copyVideoPrompts()" style="margin-top: 20px; background: var(--success-gradient);">
+                            📋 Copiar Todo el Plan
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Strategy Tool -->
+                <div id="strategyTool" class="tool-content" style="display: none;">
+                    <div class="tool-header">
+                        <h3 style="color: var(--neon-green); font-size: 2rem; margin-bottom: 20px;">📱 Estrategia Digital</h3>
+                        <p style="font-size: 1.1rem; margin-bottom: 30px;">Desarrolla la estrategia completa de distribución y promoción:</p>
+                    </div>
+                    
+                    <div class="campaign-steps">
+                        <div class="campaign-step">
+                            <div class="step-icon">📱</div>
+                            <div class="step-title">Redes Sociales</div>
+                            <div>Define en qué plataformas publicarás, horarios óptimos, hashtags estratégicos y frecuencia de publicación</div>
+                        </div>
+                        
+                        <div class="campaign-step">
+                            <div class="step-icon">🎯</div>
+                            <div class="step-title">Público Objetivo</div>
+                            <div>Identifica demografía, intereses, comportamientos de compra y canales de comunicación preferidos</div>
+                        </div>
+                        
+                        <div class="campaign-step">
+                            <div class="step-icon">📊</div>
+                            <div class="step-title">Métricas y KPIs</div>
+                            <div>Establece objetivos medibles: alcance, engagement, conversiones, ROI y herramientas de seguimiento</div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
@@ -176,7 +1102,7 @@
                     <h3 style="color: var(--neon-green); margin-bottom: 20px;">🚀 Para Comenzar</h3>
                     <ol style="padding-left: 20px; line-height: 1.8;">
                         <li>Forma equipos de 4-5 personas</li>
-                        <li>Explora la base de datos de 8 empresas</li>
+                        <li>Explora la base de datos de 8 empresas sostenibles</li>
                         <li>Selecciona una empresa que les resulte interesante</li>
                         <li>Elige el modelo de IA que utilizarán</li>
                     </ol>
@@ -207,21 +1133,21 @@
         <!-- Footer -->
         <footer style="text-align: center; padding: 60px 0; opacity: 0.7;">
             <p style="font-size: 1.1rem;">💡 <strong>Recuerda:</strong> La creatividad no tiene límites cuando se combina con la inteligencia artificial</p>
-            <p style="margin-top: 10px;">🚀 ¡Que comience la revolución del marketing!</p>
+            <p style="margin-top: 10px;">🚀 ¡Que comience la revolución del marketing sostenible!</p>
         </footer>
     </div>
 
     <script>
-        // Base de datos de empresas (modificada según solicitud)
+        // Base de datos de empresas
         const empresas = [
-            {familia: "Agoraeco", nombre: "Agoraeco", tipo: "Productos ecológicos", estado: "Emergente", empleados: 5, ingresos: 8500000, descripcion: "Agendas tipo folder reutilizables con hojas hechas de caña de azúcar con diseños innovadores y que se pueden personalizar"},
-            {familia: "Styleblood", nombre: "Styleblood", tipo: "Moda urbana", estado: "Emergente", empleados: 6, ingresos: 9200000, descripcion: "Marca de ropa que promueve el estilo de vida urbano, con diseños hechos por artistas emergentes"},
-            {familia: "Detalles de ensueño", nombre: "Detalles de ensueño", tipo: "Artesanías", estado: "Consolidado", empleados: 8, ingresos: 12500000, descripcion: "Creación de artesanías y accesorios a base de porcelanicron, con diseños minimalistas y en tendencia"},
-            {familia: "Letra Viva", nombre: "Letra Viva", tipo: "Productos educativos", estado: "Emergente", empleados: 4, ingresos: 6800000, descripcion: "Venta de animales plantables, un kit para plantar una mascota hecha con papel de semillas y que fomente el cuidado del medio ambiente y compromiso de los niños"},
-            {familia: "Nexus", nombre: "Nexus", tipo: "Accesorios tecnológicos", estado: "Emergente", empleados: 7, ingresos: 11000000, descripcion: "Venta de accesorios con impresión 3D a base de fécula de maíz, diseños personalizables y en tendencia"},
-            {familia: "Especial figuras", nombre: "Especial figuras", tipo: "Coleccionables", estado: "Consolidado", empleados: 9, ingresos: 14300000, descripcion: "Figuras coleccionables hechas a base de papel reciclado con diseños únicos y coloridos"},
-            {familia: "Ecoinfinty", nombre: "Ecoinfinty", tipo: "Material de escritura", estado: "Emergente", empleados: 5, ingresos: 7900000, descripcion: "Lápices infinitos con puntas de colores intercambiables que se pueden borrar fácilmente y tienen una duración de hasta 5 años con lindos diseños y buena calidad"},
-            {familia: "Glassy Gleam", nombre: "Glassy Gleam", tipo: "Iluminación decorativa", estado: "Consolidado", empleados: 10, ingresos: 15600000, descripcion: "Lámparas con diseños personalizados hechos en a base de materiales reciclados y luces que usan pilas intercambiables"}
+            {familia: "Familia Aguilar", nombre: "Agoraeco", tipo: "Agendas ecológicas", estado: "Emergente", empleados: 4, ingresos: 8500000, descripcion: "Agendas tipo folder reutilizables con hojas hechas de caña de azúcar con diseños innovadores y que se pueden personalizar"},
+            {familia: "Familia Sánchez", nombre: "Styleblood", tipo: "Marca de ropa urbana", estado: "Emergente", empleados: 6, ingresos: 12400000, descripcion: "Marca de ropa que promueve el estilo de vida urbano, con diseños hechos por artistas emergentes"},
+            {familia: "Familia Morales", nombre: "Detalles de Ensueño", tipo: "Artesanías decorativas", estado: "Emergente", empleados: 3, ingresos: 6800000, descripcion: "Creación de artesanías y accesorios a base de porcelanicron, con diseños minimalistas y en tendencia"},
+            {familia: "Familia Torres", nombre: "Letra Viva", tipo: "Productos educativos ecológicos", estado: "Emergente", empleados: 5, ingresos: 7200000, descripcion: "Venta de animales plantables, un kit para plantar una mascota hecha con papel de semillas y que fomente el cuidado del medio ambiente y compromiso de los niños"},
+            {familia: "Familia López", nombre: "Nexus", tipo: "Accesorios 3D personalizados", estado: "Emergente", empleados: 4, ingresos: 9300000, descripcion: "Venta de accesorios con impresión 3D a base de fécula de maíz, diseños personalizables y en tendencia"},
+            {familia: "Familia Pérez", nombre: "Especial Figuras", tipo: "Figuras coleccionables", estado: "Emergente", empleados: 3, ingresos: 5900000, descripcion: "Figuras coleccionables hechas a base de papel reciclado con diseños únicos y coloridos"},
+            {familia: "Familia Ramírez", nombre: "Ecoinfinty", tipo: "Útiles escolares sostenibles", estado: "Emergente", empleados: 4, ingresos: 8100000, descripcion: "Lápices infinitos con puntas de colores intercambiables que se pueden borrar fácilmente y tienen una duración de hasta 5 años con lindos diseños y buena calidad"},
+            {familia: "Familia Vargas", nombre: "Glassy Gleam", tipo: "Iluminación personalizada", estado: "Emergente", empleados: 5, ingresos: 10200000, descripcion: "Lámparas con diseños personalizados hechos a base de materiales reciclados y luces que usan pilas intercambiables"}
         ];
 
         // Cargar empresas en la grid
@@ -241,7 +1167,7 @@
                     <div class="company-name">${empresa.nombre}</div>
                     <div class="company-type">${empresa.tipo} | ${empresa.familia}</div>
                     <div class="company-status ${statusClass}">${empresa.estado}</div>
-                    <div class="company-description" style="margin-top: 15px; font-size: 0.9rem; opacity: 0.8;">
+                    <div style="margin: 15px 0; font-size: 0.95rem; line-height: 1.4; color: var(--text-light); opacity: 0.9;">
                         ${empresa.descripcion}
                     </div>
                     <div style="margin-top: 10px; font-size: 0.9rem; opacity: 0.7;">
@@ -312,36 +1238,41 @@ ANÁLISIS ESTRATÉGICO PARA ${empresa.nombre.toUpperCase()}
 Empresa: ${empresa.nombre}
 Sector: ${empresa.tipo}
 Estado: ${empresa.estado}
-Descripción: ${empresa.descripcion}
 Empleados: ${empresa.empleados}
 Ingresos mensuales: ${empresa.ingresos.toLocaleString()} COP
+Descripción: ${empresa.descripcion}
 
 SOLICITUD:
-Como experto en estrategia empresarial y marketing, necesito que desarrolles:
+Como experto en estrategia empresarial y marketing sostenible, necesito que desarrolles:
 
-1. ESTRATEGIAS GENERALES diferenciadas para esta empresa según su estado actual (${empresa.estado}):
-   - Si es CONSOLIDADA: Estrategias de expansión, diversificación y liderazgo de mercado
-   - Si es EMERGENTE: Estrategias de crecimiento acelerado, posicionamiento y captación de mercado
+1. ESTRATEGIAS ESPECÍFICAS para esta empresa emergente con enfoque ecológico:
+   - Estrategias de crecimiento acelerado y posicionamiento como marca sostenible
+   - Diferenciación en el mercado de productos ecológicos
+   - Captación de audiencia consciente ambientalmente
 
 2. ANÁLISIS ESPECÍFICO considerando:
    - Características del sector ${empresa.tipo}
-   - Producto/servicio: ${empresa.descripcion}
+   - Componente de sostenibilidad y materiales ecológicos
    - Tamaño actual del equipo (${empresa.empleados} empleados)
-   - Capacidad financiera actual
-   - Oportunidades de mercado en Colombia
+   - Mercado objetivo de productos sostenibles en Colombia
 
 3. PLAN DE ACCIÓN con:
-   - 5 estrategias prioritarias
-   - Timeline de implementación
-   - KPIs de medición
-   - Presupuesto estimado
+   - 5 estrategias prioritarias para empresas sostenibles
+   - Timeline de implementación (6 meses)
+   - KPIs de medición específicos para sostenibilidad
+   - Presupuesto estimado para startups
+
+4. PROPUESTA DE VALOR SOSTENIBLE:
+   - Messaging ecológico diferenciado
+   - Comunicación de impacto ambiental
+   - Construcción de comunidad consciente
 
 Por favor estructura tu respuesta de forma clara y accionable.`;
 
                 case 'products':
                     return `${modelPrefix}
 
-ANÁLISIS DE PRODUCTOS Y SERVICIOS - ${empresa.nombre.toUpperCase()}
+ANÁLISIS DE PRODUCTOS SOSTENIBLES - ${empresa.nombre.toUpperCase()}
 
 Empresa: ${empresa.nombre}
 Sector: ${empresa.tipo}
@@ -349,66 +1280,81 @@ Estado: ${empresa.estado}
 Descripción: ${empresa.descripcion}
 
 SOLICITUD:
-Crea una tabla comparativa completa que incluya:
+Crea un análisis completo de productos sostenibles que incluya:
 
 PRODUCTOS/SERVICIOS ACTUALES:
-1. Lista los productos/servicios que probablemente ofrece esta empresa de ${empresa.tipo}
-2. Analiza sus características principales
-3. Identifica fortalezas y debilidades
+1. Analiza los productos actuales basados en: ${empresa.descripcion}
+2. Evalúa el componente de sostenibilidad y materiales ecológicos
+3. Identifica fortalezas en diferenciación sostenible
+4. Analiza debilidades en el mercado actual
 
-PROPUESTAS DE INNOVACIÓN:
-1. 5 nuevos productos/servicios que podrían incluir
-2. Productos digitales o con componente tecnológico
-3. Servicios complementarios que generen valor agregado
-4. Alianzas estratégicas para nuevas ofertas
+PROPUESTAS DE INNOVACIÓN SOSTENIBLE:
+1. 5 nuevos productos que amplíen la línea ecológica
+2. Versiones digitales o híbridas de los productos actuales
+3. Servicios complementarios con impacto ambiental positivo
+4. Productos de economía circular y reutilización
+5. Alianzas con otras empresas sostenibles
 
-ANÁLISIS DE MERCADO:
-- Tendencias del sector ${empresa.tipo} en 2025
-- Necesidades no satisfechas del cliente
-- Oportunidades de diferenciación
+ANÁLISIS DE MERCADO VERDE:
+- Tendencias del sector ${empresa.tipo} hacia la sostenibilidad en 2025
+- Necesidades no satisfechas en productos ecológicos
+- Oportunidades de certificaciones ambientales
+- Segmentos de mercado consciente ambiental
 
 TABLA COMPARATIVA:
-| Producto/Servicio | Tipo (Actual/Propuesta) | Inversión Estimada | Potencial de Ingresos | Facilidad de Implementación | Diferenciación |
+| Producto/Servicio | Tipo (Actual/Propuesta) | Impacto Ambiental | Inversión Estimada | Potencial de Ingresos | Facilidad de Implementación | Diferenciación Sostenible |
 
-Incluye recomendaciones específicas para esta empresa en estado ${empresa.estado}.`;
+RECOMENDACIONES ESPECÍFICAS:
+Incluye estrategias para posicionar estos productos en el mercado de consumo consciente.`;
 
                 case 'alliances':
                     return `${modelPrefix}
 
-ANÁLISIS DE ALIANZAS ESTRATÉGICAS - ${empresa.nombre.toUpperCase()}
+ALIANZAS ESTRATÉGICAS SOSTENIBLES - ${empresa.nombre.toUpperCase()}
 
 Empresa: ${empresa.nombre} (${empresa.tipo})
 Estado: ${empresa.estado}
 Descripción: ${empresa.descripcion}
 
 SOLICITUD:
-Identifica y analiza oportunidades de alianzas estratégicas:
+Identifica oportunidades de alianzas entre empresas sostenibles:
 
-ANÁLISIS DE COMPLEMENTARIEDAD:
-1. De las 8 empresas en nuestra base de datos, identifica empresas que podrían formar alianzas estratégicas con ${empresa.nombre}
+ANÁLISIS DE COMPLEMENTARIEDAD SOSTENIBLE:
+1. De las 8 empresas sostenibles en nuestra base de datos, identifica 5 empresas que podrían formar alianzas estratégicas con ${empresa.nombre}
+
+Las empresas disponibles son:
+- Agoraeco (Agendas ecológicas de caña de azúcar)
+- Styleblood (Ropa urbana con artistas emergentes)
+- Detalles de Ensueño (Artesanías de porcelanicron)
+- Letra Viva (Animales plantables educativos)
+- Nexus (Accesorios 3D de fécula de maíz)
+- Especial Figuras (Figuras de papel reciclado)
+- Ecoinfinty (Lápices infinitos intercambiables)
+- Glassy Gleam (Lámparas de materiales reciclados)
 
 2. Para cada alianza propuesta, explica:
-   - ¿Cómo se complementan los negocios?
-   - ¿Qué beneficios recibiría cada empresa?
-   - ¿Qué recursos o capacidades aportaría cada una?
-   - ¿Cuáles serían los productos/servicios conjuntos?
+   - ¿Cómo se complementan los enfoques sostenibles?
+   - ¿Qué beneficios ambientales y comerciales recibiría cada empresa?
+   - ¿Qué recursos ecológicos o capacidades sostenibles aportaría cada una?
+   - ¿Cuáles serían los productos/servicios conjuntos con impacto ambiental?
 
-TIPOS DE ALIANZAS:
-- Alianzas comerciales (cross-selling, bundling)
-- Alianzas operativas (compartir recursos, logística)
-- Alianzas tecnológicas (digitalización conjunta)
-- Alianzas de marketing (campañas conjuntas)
+TIPOS DE ALIANZAS VERDES:
+- Alianzas de cadena de suministro sostenible
+- Colaboraciones de economía circular
+- Partnerships de educación ambiental
+- Alianzas de certificación y trazabilidad
+- Colaboraciones de marketing verde conjunto
 
-PLAN DE IMPLEMENTACIÓN:
-- Priorización de alianzas (corto, mediano, largo plazo)
-- Estructura de colaboración propuesta
-- Métricas de éxito para cada alianza
-- Riesgos y mitigación
+PLAN DE IMPLEMENTACIÓN SOSTENIBLE:
+- Priorización de alianzas (impacto ambiental vs viabilidad comercial)
+- Estructura de colaboración con métricas de sostenibilidad
+- KPIs ambientales y comerciales para cada alianza
+- Riesgos y mitigación en partnerships verdes
 
 CASOS ESPECÍFICOS:
-Desarrolla en detalle 2 alianzas prioritarias con plan de negocio conjunto.
+Desarrolla en detalle 2 alianzas prioritarias con plan de negocio conjunto que maximice el impacto ambiental positivo.
 
-Considera el contexto colombiano y las particularidades del sector ${empresa.tipo}.`;
+Considera el contexto colombiano y las tendencias de consumo consciente.`;
 
                 default:
                     return 'Selecciona un tipo de prompt válido.';
@@ -445,6 +1391,510 @@ Considera el contexto colombiano y las particularidades del sector ${empresa.tip
                     btn.textContent = originalText;
                     btn.style.background = 'var(--success-gradient)';
                 }, 2000);
+            });
+        }
+
+        // === FUNCIONES PARA LA CAMPAÑA DE MARKETING ===
+        
+        // Cambiar entre herramientas de la campaña
+        function switchTool(toolName) {
+            // Ocultar todas las herramientas
+            document.querySelectorAll('.tool-content').forEach(tool => {
+                tool.style.display = 'none';
+            });
+            
+            // Remover clase active de todos los tabs
+            document.querySelectorAll('.tool-tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            
+            // Mostrar herramienta seleccionada
+            document.getElementById(toolName + 'Tool').style.display = 'block';
+            document.getElementById(toolName + 'Tab').classList.add('active');
+        }
+        
+        // === GENERADOR DE PIEZAS GRÁFICAS ===
+        
+        function generateGraphicsPrompt() {
+            const selectedCompany = document.getElementById('selectedCompany').value;
+            if (!selectedCompany) {
+                alert('Primero selecciona una empresa de la base de datos');
+                return;
+            }
+            
+            const empresa = empresas[selectedCompany];
+            const graphicsAI = document.getElementById('graphicsAI').value;
+            const description = document.getElementById('graphicsDescription').value;
+            const adType = document.getElementById('adType').value;
+            
+            if (!description.trim()) {
+                alert('Por favor describe tu idea visual');
+                return;
+            }
+            
+            const btnText = document.getElementById('graphicsGenText');
+            const loader = document.getElementById('graphicsGenLoader');
+            const result = document.getElementById('graphicsResult');
+            const output = document.getElementById('graphicsPromptOutput');
+            
+            // Mostrar loading
+            btnText.classList.add('hidden');
+            loader.classList.remove('hidden');
+            
+            setTimeout(() => {
+                const prompt = createGraphicsPrompt(empresa, graphicsAI, description, adType);
+                output.textContent = prompt;
+                result.style.display = 'block';
+                result.scrollIntoView({behavior: 'smooth'});
+                
+                // Ocultar loading
+                btnText.classList.remove('hidden');
+                loader.classList.add('hidden');
+            }, 1500);
+        }
+        
+        function createGraphicsPrompt(empresa, aiTool, description, adType) {
+            const dimensions = getAdDimensions(adType);
+            const aiPrefix = getGraphicsAIPrefix(aiTool);
+            
+            return `${aiPrefix}
+
+🎨 PROMPT PARA PIEZA PUBLICITARIA - ${empresa.nombre.toUpperCase()}
+
+CONFIGURACIÓN:
+- Empresa: ${empresa.nombre}
+- Sector: ${empresa.tipo}
+- Tipo de pieza: ${adType}
+- Dimensiones: ${dimensions}
+- Enfoque: Sostenible y ecológico
+
+DESCRIPCIÓN VISUAL:
+${description}
+
+ESPECIFICACIONES TÉCNICAS:
+- Calidad: Ultra alta resolución, 4K
+- Estilo: Fotografía comercial profesional
+- Iluminación: Natural y atractiva
+- Composición: Regla de tercios, equilibrio visual
+- Colores: Vibrantes y llamativos, paleta eco-friendly
+- Texto: Espacio reservado para logo y texto promocional
+
+ELEMENTOS OBLIGATORIOS:
+- Producto/servicio de ${empresa.tipo} como protagonista
+- Ambiente que refleje sostenibilidad y ${empresa.nombre}
+- Estética moderna, limpia y eco-consciente
+- Elementos naturales que refuercen el mensaje sostenible
+- Sin texto superpuesto (se agregará después)
+
+OPTIMIZACIÓN PARA ${adType.toUpperCase()}:
+${getAdSpecifications(adType)}
+
+PROMPT FINAL OPTIMIZADO:
+"${description}, sustainable eco-friendly aesthetic, professional commercial photography, ultra high quality, 4K resolution, vibrant natural colors, modern clean composition, ${empresa.tipo} business, eco-conscious lighting, green marketing advertisement style, no text overlay, ${dimensions} aspect ratio, environmental friendly theme"`;
+        }
+        
+        function getAdDimensions(adType) {
+            const dimensions = {
+                'instagram-post': '1:1 (cuadrado)',
+                'instagram-story': '9:16 (vertical)',
+                'facebook-ad': '1.91:1 (horizontal)',
+                'banner-web': '728x90 (banner)',
+                'poster': 'A3 (297x420mm)',
+                'flyer': 'A5 (148x210mm)'
+            };
+            return dimensions[adType] || '1:1';
+        }
+        
+        function getGraphicsAIPrefix(aiTool) {
+            const prefixes = {
+                'midjourney': 'PROMPT OPTIMIZADO PARA MIDJOURNEY:',
+                'dall-e': 'PROMPT OPTIMIZADO PARA DALL-E 3:',
+                'stable-diffusion': 'PROMPT OPTIMIZADO PARA STABLE DIFFUSION:',
+                'leonardo': 'PROMPT OPTIMIZADO PARA LEONARDO AI:'
+            };
+            return prefixes[aiTool] || 'PROMPT PARA IA GRÁFICA:';
+        }
+        
+        function getAdSpecifications(adType) {
+            const specs = {
+                'instagram-post': 'Optimizado para feed de Instagram, máximo impacto visual en formato cuadrado',
+                'instagram-story': 'Diseño vertical para historias, elementos importantes en zona segura central',
+                'facebook-ad': 'Formato horizontal para timeline, texto mínimo debido a políticas de Facebook',
+                'banner-web': 'Banner web optimizado, llamativo pero no intrusivo',
+                'poster': 'Alta resolución para impresión, elementos grandes y legibles',
+                'flyer': 'Diseño compacto, información clave visible'
+            };
+            return specs[adType] || 'Diseño optimizado para el formato seleccionado';
+        }
+        
+        function copyGraphicsPrompt() {
+            const output = document.getElementById('graphicsPromptOutput');
+            navigator.clipboard.writeText(output.textContent).then(() => {
+                const btn = event.target;
+                const originalText = btn.textContent;
+                btn.textContent = '✅ ¡Copiado!';
+                btn.style.background = 'var(--warning-gradient)';
+                
+                setTimeout(() => {
+                    btn.textContent = originalText;
+                    btn.style.background = 'var(--success-gradient)';
+                }, 2000);
+            });
+        }
+        
+        // === GENERADOR DE VIDEOS ===
+        
+        let sceneCount = 1;
+        
+        function addScene() {
+            sceneCount++;
+            const container = document.getElementById('scenesContainer');
+            const newScene = document.createElement('div');
+            newScene.className = 'scene-input';
+            newScene.innerHTML = `
+                <input type="text" placeholder="Escena ${sceneCount}: Descripción..." class="scene-description">
+                <input type="number" placeholder="Segundos" min="1" max="30" class="scene-duration" style="width: 100px;">
+                <button type="button" onclick="removeScene(this)" style="background: var(--secondary-gradient); color: white; border: none; padding: 8px 12px; border-radius: 5px; cursor: pointer;">✕</button>
+            `;
+            container.appendChild(newScene);
+        }
+        
+        function removeScene(button) {
+            button.parentElement.remove();
+        }
+        
+        function generateVideoPrompts() {
+            const selectedCompany = document.getElementById('selectedCompany').value;
+            if (!selectedCompany) {
+                alert('Primero selecciona una empresa de la base de datos');
+                return;
+            }
+            
+            const empresa = empresas[selectedCompany];
+            const duration = document.getElementById('videoDuration').value;
+            const story = document.getElementById('videoStory').value;
+            const voiceType = document.getElementById('voiceType').value;
+            
+            // Recopilar escenas
+            const scenes = [];
+            document.querySelectorAll('.scene-input').forEach(sceneInput => {
+                const description = sceneInput.querySelector('.scene-description').value;
+                const sceneDuration = sceneInput.querySelector('.scene-duration').value;
+                if (description.trim()) {
+                    scenes.push({ description, duration: sceneDuration || 3 });
+                }
+            });
+            
+            if (!story.trim()) {
+                alert('Por favor describe el concepto de tu video');
+                return;
+            }
+            
+            if (scenes.length === 0) {
+                alert('Agrega al menos una escena para tu video');
+                return;
+            }
+            
+            // Herramientas seleccionadas
+            const tools = {
+                sora: document.getElementById('useSora').checked,
+                runway: document.getElementById('useRunway').checked,
+                elevenlabs: document.getElementById('useElevenLabs').checked,
+                midjourney: document.getElementById('useMidjourney').checked
+            };
+            
+            const btnText = document.getElementById('videoGenText');
+            const loader = document.getElementById('videoGenLoader');
+            const result = document.getElementById('videoResult');
+            
+            // Mostrar loading
+            btnText.classList.add('hidden');
+            loader.classList.remove('hidden');
+            
+            setTimeout(() => {
+                generateCompleteVideoPrompts(empresa, duration, story, scenes, voiceType, tools);
+                result.style.display = 'block';
+                result.scrollIntoView({behavior: 'smooth'});
+                
+                // Ocultar loading
+                btnText.classList.remove('hidden');
+                loader.classList.add('hidden');
+            }, 2000);
+        }
+        
+        function generateCompleteVideoPrompts(empresa, duration, story, scenes, voiceType, tools) {
+            // Generar guión
+            const script = generateVideoScript(empresa, story, duration, voiceType);
+            document.getElementById('scriptOutput').textContent = script;
+            
+            // Generar prompts visuales
+            const visualPrompts = generateVisualPrompts(empresa, scenes, tools);
+            document.getElementById('visualOutput').textContent = visualPrompts;
+            
+            // Generar configuración de voz
+            const voiceConfig = generateVoiceConfig(voiceType, script);
+            document.getElementById('voiceOutput').textContent = voiceConfig;
+            
+            // Generar efectos
+            const effects = generateEffectsPrompts(tools, duration);
+            document.getElementById('effectsOutput').textContent = effects;
+        }
+        
+        function generateVideoScript(empresa, story, duration, voiceType) {
+            return `🎬 GUIÓN PARA VIDEO PROMOCIONAL - ${empresa.nombre.toUpperCase()}
+
+DURACIÓN: ${duration} segundos
+CONCEPTO: ${story}
+ENFOQUE: Sostenible y eco-consciente
+
+GUIÓN NARRATIVO:
+
+[INTRO - 0-3 segundos]
+🎤 LOCUCIÓN: "¿Buscas ${getProductBenefit(empresa.tipo)}?"
+
+[DESARROLLO - 4-${Math.round(duration * 0.7)} segundos]
+🎤 LOCUCIÓN: "En ${empresa.nombre}, ${getUniqueValue(empresa.tipo, empresa.nombre)}"
+
+[LLAMADA A LA ACCIÓN - ${Math.round(duration * 0.7)}-${duration} segundos]
+🎤 LOCUCIÓN: "Únete al cambio sostenible. ${empresa.nombre}... ¡Tu opción eco-consciente!"
+
+ESTILO DE NARRACIÓN: ${getVoiceDescription(voiceType)}
+
+MÚSICA DE FONDO:
+- Tempo: Energético pero orgánico
+- Estilo: Upbeat comercial con elementos naturales
+- Instrumentación: Guitarra acústica, sintetizadores suaves
+- Volumen: 30% durante narración, 60% en transiciones
+
+EFECTOS DE SONIDO:
+- Sonidos naturales sutiles (viento, hojas, agua)
+- Efectos de transición suaves
+- Audio que refuerce el mensaje sostenible
+
+TIMING DETALLADO:
+${generateDetailedTiming(duration)}`;
+        }
+        
+        function generateVisualPrompts(empresa, scenes, tools) {
+            let prompts = `🎥 PROMPTS PARA ESCENAS VISUALES\n\n`;
+            
+            scenes.forEach((scene, index) => {
+                prompts += `ESCENA ${index + 1} (${scene.duration}s):\n`;
+                prompts += `Descripción: ${scene.description}\n\n`;
+                
+                if (tools.sora) {
+                    prompts += `PROMPT PARA SORA:\n`;
+                    prompts += `"${scene.description}, sustainable eco-friendly aesthetic, professional commercial video, 4K quality, smooth camera movement, ${empresa.tipo} business setting, natural lighting, vibrant earth tones, green marketing style, ${scene.duration} seconds duration"\n\n`;
+                }
+                
+                if (tools.runway) {
+                    prompts += `PROMPT PARA RUNWAY ML:\n`;
+                    prompts += `"${scene.description} --style commercial eco-friendly --quality high --duration ${scene.duration}s --camera smooth --lighting natural --mood sustainable"\n\n`;
+                }
+                
+                if (tools.midjourney && index === 0) {
+                    prompts += `IMAGEN DE REFERENCIA (MIDJOURNEY):\n`;
+                    prompts += `"${scene.description}, sustainable commercial photography, eco-friendly aesthetic, ultra realistic, 4K, natural lighting, ${empresa.tipo} business, green marketing --ar 16:9 --v 6"\n\n`;
+                }
+                
+                prompts += `ESPECIFICACIONES TÉCNICAS:\n`;
+                prompts += `- Resolución: 4K (3840x2160)\n`;
+                prompts += `- Frame Rate: 30fps\n`;
+                prompts += `- Estilo: Comercial sostenible\n`;
+                prompts += `- Paleta: Colores naturales y earth tones\n`;
+                prompts += `- Movimiento: Suave y orgánico\n\n`;
+                prompts += `---\n\n`;
+            });
+            
+            return prompts;
+        }
+        
+        function generateVoiceConfig(voiceType, script) {
+            const voiceSettings = getVoiceSettings(voiceType);
+            
+            return `🎤 CONFIGURACIÓN DE VOZ - ELEVENLABS
+
+TIPO DE VOZ SELECCIONADA: ${voiceType.toUpperCase()}
+ENFOQUE: Comunicación sostenible y consciente
+
+CONFIGURACIONES:
+${voiceSettings}
+
+SCRIPT PARA ELEVENLABS:
+"${extractNarrationText(script)}"
+
+CONFIGURACIÓN DE PARÁMETROS:
+- Stability: 0.75
+- Clarity + Similarity Enhancement: 0.85
+- Style: Eco-conscious Commercial
+- Use Speaker Boost: Yes
+- Emotion: Optimista y confiable
+
+INSTRUCCIONES DE USO:
+1. Copia el script en ElevenLabs
+2. Selecciona una voz ${getVoiceGender(voiceType)} 
+3. Aplica las configuraciones mencionadas
+4. Genera el audio en formato MP3, 44.1kHz
+5. Ajusta velocidad si es necesario para duración total
+
+EFECTOS DE POST-PRODUCCIÓN:
+- Normalización de audio
+- Eliminación de ruido de fondo
+- EQ suave para claridad y calidez
+- Compresión ligera
+- Reverb sutil para ambiente natural`;
+        }
+        
+        function generateEffectsPrompts(tools, duration) {
+            return `✨ EFECTOS Y TRANSICIONES SOSTENIBLES
+
+EFECTOS VISUALES ${tools.runway ? '(RUNWAY ML)' : '(GENERAL)'}:
+
+TRANSICIONES ECO-FRIENDLY (cada 3-5 segundos):
+- Fade orgánico entre escenas
+- Zoom natural en productos sostenibles
+- Slide suave con elementos naturales
+- Dissolve con partículas ecológicas
+
+EFECTOS ESPECIALES SOSTENIBLES:
+- Partículas naturales (hojas, gotas, brillos solares)
+- Movimiento de cámara cinematográfico orgánico
+- Color grading earth tones (verdes, marrones, dorados)
+- Estabilización de imagen suave
+
+${tools.runway ? `
+PROMPTS ESPECÍFICOS PARA RUNWAY ML:
+- "Add organic transition effects --style eco-commercial"
+- "Enhance natural colors and earth tones --intensity 0.7"
+- "Add subtle nature particle effects --type leaf-fall"
+- "Apply sustainable color grading --style earth-tones"
+` : ''}
+
+CONFIGURACIÓN DE RENDER FINAL:
+- Resolución: 1080x1920 (vertical para redes)
+- Codificación: H.264, alta calidad eco-friendly
+- Frame rate: 30fps suave
+- Audio: AAC 48kHz estéreo con ambiente natural
+
+OPTIMIZACIÓN PARA PLATAFORMAS:
+📱 Instagram Reels: 9:16, máx ${duration}s, #sostenible #ecoconsciente
+📱 TikTok: 9:16, máx ${duration}s, #ecofriendly #sustentable
+📘 Facebook: 1:1 o 16:9, enfoque en comunidad eco-consciente
+🎬 YouTube Shorts: 9:16, máx 60s, SEO sostenible
+
+HASHTAGS RECOMENDADOS:
+#sostenible #ecoconsciente #ecofriendly #sustentable #medioambiente #colombia #innovacion #emprendimiento`;
+        }
+        
+        // Funciones auxiliares para el generador de video
+        function getProductBenefit(tipo) {
+            const benefits = {
+                'Agendas ecológicas': 'organización sostenible y personalizada',
+                'Marca de ropa urbana': 'estilo urbano único y auténtico',
+                'Artesanías decorativas': 'decoración minimalista y original',
+                'Productos educativos ecológicos': 'educación ambiental divertida',
+                'Accesorios 3D personalizados': 'accesorios únicos y personalizados',
+                'Figuras coleccionables': 'colecciones únicas y sostenibles',
+                'Útiles escolares sostenibles': 'útiles que duran años',
+                'Iluminación personalizada': 'iluminación única y ecológica'
+            };
+            return benefits[tipo] || `productos de ${tipo} innovadores`;
+        }
+        
+        function getUniqueValue(tipo, nombre) {
+            const sustainabilityFocus = {
+                'Agendas ecológicas': 'combinamos organización con sostenibilidad usando materiales de caña de azúcar',
+                'Marca de ropa urbana': 'colaboramos con artistas emergentes para crear piezas únicas que expresan tu personalidad',
+                'Artesanías decorativas': 'creamos piezas minimalistas en porcelanicron que transforman cualquier espacio',
+                'Productos educativos ecológicos': 'enseñamos a los niños sobre el cuidado ambiental de forma divertida con papel de semillas',
+                'Accesorios 3D personalizados': 'utilizamos fécula de maíz para crear accesorios únicos sin dañar el planeta',
+                'Figuras coleccionables': 'damos nueva vida al papel reciclado con diseños coloridos y únicos',
+                'Útiles escolares sostenibles': 'nuestros lápices duran hasta 5 años con puntas intercambiables',
+                'Iluminación personalizada': 'transformamos materiales reciclados en lámparas únicas que iluminan con estilo'
+            };
+            return sustainabilityFocus[tipo] || `ofrecemos productos innovadores y sostenibles de ${tipo}`;
+        }
+        
+        function getVoiceDescription(voiceType) {
+            const descriptions = {
+                'young-energetic': 'Voz joven, dinámica y entusiasta que conecta con audiencia eco-consciente',
+                'professional': 'Voz seria y confiable que transmite credibilidad en sostenibilidad',
+                'friendly': 'Voz cálida y cercana que genera confianza en productos ecológicos',
+                'narrator': 'Voz profunda y épica que capta atención sobre el impacto ambiental',
+                'no-voice': 'Sin narración, énfasis en sonidos naturales y música orgánica'
+            };
+            return descriptions[voiceType] || 'Voz comercial eco-consciente';
+        }
+        
+        function getVoiceSettings(voiceType) {
+            const settings = {
+                'young-energetic': `- Voz: Femenina o masculina joven (18-25 años)
+- Energía: Alta pero consciente
+- Velocidad: Moderada-rápida
+- Tono: Entusiasta y eco-optimista`,
+                'professional': `- Voz: Masculina o femenina madura (30-45 años)
+- Energía: Controlada y sostenible
+- Velocidad: Moderada y reflexiva
+- Tono: Serio, confiable y eco-experto`,
+                'friendly': `- Voz: Cualquier género, edad media
+- Energía: Cálida y natural
+- Velocidad: Relajada y orgánica
+- Tono: Amigable y eco-consciente`,
+                'narrator': `- Voz: Masculina profunda
+- Energía: Dramática pero natural
+- Velocidad: Pausada y reflexiva
+- Tono: Épico y ambientalmente consciente`,
+                'no-voice': `- Sin configuración de voz
+- Enfoque en música instrumental orgánica
+- Sonidos naturales ambientales
+- Ritmo visual sin narración`
+            };
+            return settings[voiceType] || 'Configuración eco-consciente estándar';
+        }
+        
+        function getVoiceGender(voiceType) {
+            if (voiceType === 'narrator') return 'masculina profunda';
+            if (voiceType === 'young-energetic') return 'joven eco-consciente (cualquier género)';
+            return 'según preferencia sostenible';
+        }
+        
+        function extractNarrationText(script) {
+            const matches = script.match(/🎤 LOCUCIÓN: "(.*?)"/g);
+            if (!matches) return '';
+            return matches.map(match => match.replace('🎤 LOCUCIÓN: "', '').replace('"', '')).join(' ');
+        }
+        
+        function generateDetailedTiming(duration) {
+            const segments = Math.max(3, Math.floor(duration / 15));
+            let timing = '';
+            const segmentDuration = duration / segments;
+            
+            for (let i = 0; i < segments; i++) {
+                const start = Math.round(i * segmentDuration);
+                const end = Math.round((i + 1) * segmentDuration);
+                timing += `${start}-${end}s: Segmento ${i + 1} - Enfoque sostenible\n`;
+            }
+            return timing;
+        }
+        
+        function copyVideoPrompts() {
+            const allPrompts = [
+                document.getElementById('scriptOutput').textContent,
+                document.getElementById('visualOutput').textContent,
+                document.getElementById('voiceOutput').textContent,
+                document.getElementById('effectsOutput').textContent
+            ].join('\n\n=================\n\n');
+            
+            navigator.clipboard.writeText(allPrompts).then(() => {
+                const btn = event.target;
+                const originalText = btn.textContent;
+                btn.textContent = '✅ ¡Plan Completo Copiado!';
+                btn.style.background = 'var(--warning-gradient)';
+                
+                setTimeout(() => {
+                    btn.textContent = originalText;
+                    btn.style.background = 'var(--success-gradient)';
+                }, 2500);
             });
         }
 
