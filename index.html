@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🚀 AI Marketing Lab - Taller de Innovación</title>
+    <style>
+        /* (El CSS se mantiene igual) */
+    </style>
+</head>
+<body>
+    <div class="bg-animation"></div>
+    
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <h1>🚀 AI MARKETING LAB</h1>
+            <p>Taller de Innovación y Emprendimiento con Inteligencia Artificial</p>
+            <p style="font-size: 1.2rem; color: var(--neon-green); font-weight: 600;">¡Conviértete en el líder de la agencia de marketing del futuro!</p>
+            
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-number">8</div>
+                    <div class="stat-label">Empresas Innovadoras</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">7</div>
+                    <div class="stat-label">Tipos de Negocios</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">4</div>
+                    <div class="stat-label">Modelos de IA</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">∞</div>
+                    <div class="stat-label">Posibilidades</div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Workshop Activities -->
+        <section class="workshop-section">
+            <h2 class="section-title">🎯 Misiones del Taller</h2>
+            <p style="font-size: 1.3rem; opacity: 0.9; margin-bottom: 20px;">Como líderes de esta agencia de marketing, tendrán 5 misiones estratégicas que completar:</p>
+            
+            <div class="activities-grid">
+                <div class="activity-card">
+                    <div class="activity-number">1</div>
+                    <div class="activity-title">🤖 Escoge tu IA</div>
+                    <div class="activity-description">Selecciona el modelo de inteligencia artificial que mejor se adapte a tu estrategia</div>
+                    <div class="ai-models">
+                        <span class="ai-model">Claude</span>
+                        <span class="ai-model">ChatGPT</span>
+                        <span class="ai-model">Gemini</span>
+                        <span class="ai-model">DeepSeek</span>
+                    </div>
+                </div>
+
+                <div class="activity-card">
+                    <div class="activity-number">2</div>
+                    <div class="activity-title">📈 Estrategias Generales</div>
+                    <div class="activity-description">Crea prompts para desarrollar estrategias diferenciadas para empresas consolidadas y emergentes según su actividad económica</div>
+                </div>
+
+                <div class="activity-card">
+                    <div class="activity-number">3</div>
+                    <div class="activity-title">💡 Análisis de Productos</div>
+                    <div class="activity-description">Desarrolla una tabla comparativa de productos existentes vs. nuevas propuestas innovadoras</div>
+                </div>
+
+                <div class="activity-card">
+                    <div class="activity-number">4</div>
+                    <div class="activity-title">🤝 Alianzas Estratégicas</div>
+                    <div class="activity-description">Identifica oportunidades de colaboración entre empresas y los beneficios mutuos</div>
+                </div>
+
+                <div class="activity-card">
+                    <div class="activity-number">5</div>
+                    <div class="activity-title">🎨 Campaña Final</div>
+                    <div class="activity-description">Crea piezas gráficas y videos promocionales usando IA para la empresa seleccionada</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Company Database -->
+        <section class="workshop-section">
+            <h2 class="section-title">🏢 Base de Datos Empresarial</h2>
+            <p style="font-size: 1.2rem; margin-bottom: 20px;">Explora las 8 empresas innovadoras con las que trabajarás:</p>
+            
+            <div class="company-selector">
+                <div class="companies-grid" id="companiesGrid">
+                    <!-- Las empresas se cargarán aquí -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Prompt Generator -->
+        <section class="workshop-section">
+            <h2 class="section-title">⚡ Generador de Prompts Inteligentes</h2>
+            <p style="font-size: 1.2rem; margin-bottom: 30px;">Selecciona una empresa y genera prompts personalizados para cada actividad:</p>
+            
+            <div style="margin-bottom: 20px;">
+                <label style="display: block; margin-bottom: 10px; font-weight: 600;">Selecciona una empresa:</label>
+                <select id="selectedCompany" style="width: 100%; padding: 15px; border-radius: 10px; background: var(--card-bg); border: 1px solid rgba(255,255,255,0.2); color: var(--text-light); font-size: 1rem;">
+                    <option value="">Elige una empresa...</option>
+                </select>
+            </div>
+
+            <div style="margin-bottom: 20px;">
+                <label style="display: block; margin-bottom: 10px; font-weight: 600;">Modelo de IA:</label>
+                <select id="aiModel" style="width: 100%; padding: 15px; border-radius: 10px; background: var(--card-bg); border: 1px solid rgba(255,255,255,0.2); color: var(--text-light); font-size: 1rem;">
+                    <option value="claude">Claude (Anthropic)</option>
+                    <option value="chatgpt">ChatGPT (OpenAI)</option>
+                    <option value="gemini">Gemini (Google)</option>
+                    <option value="deepseek">DeepSeek</option>
+                </select>
+            </div>
+
+            <div style="margin-bottom: 20px;">
+                <label style="display: block; margin-bottom: 10px; font-weight: 600;">Tipo de Prompt:</label>
+                <select id="promptType" style="width: 100%; padding: 15px; border-radius: 10px; background: var(--card-bg); border: 1px solid rgba(255,255,255,0.2); color: var(--text-light); font-size: 1rem;">
+                    <option value="strategy">Estrategias Generales</option>
+                    <option value="products">Análisis de Productos</option>
+                    <option value="alliances">Alianzas Estratégicas</option>
+                </select>
+            </div>
+
+            <button class="btn" onclick="generatePrompt()">
+                <span id="generateBtnText">🎯 Generar Prompt Personalizado</span>
+                <span id="generateLoader" class="loading hidden"></span>
+            </button>
+
+            <div class="prompt-generator">
+                <h3 style="color: var(--neon-pink); margin-bottom: 20px;">📝 Tu Prompt Personalizado:</h3>
+                <div class="prompt-output" id="promptOutput">
+                    Selecciona una empresa y tipo de prompt para generar tu estrategia personalizada...
+                </div>
+                <button class="btn" onclick="copyPrompt()" style="margin-top: 15px; background: var(--success-gradient);">
+                    📋 Copiar Prompt
+                </button>
+            </div>
+        </section>
+
+        <!-- Final Campaign Section -->
+        <section class="campaign-section">
+            <h2 class="campaign-title">🎬 CAMPAÑA DE MARKETING FINAL</h2>
+            <p style="font-size: 1.3rem; margin-bottom: 40px;">Una vez completadas las 4 actividades principales, es hora de crear la campaña que conquistará el mercado:</p>
+            
+            <div class="campaign-steps">
+                <div class="campaign-step">
+                    <div class="step-icon">🎨</div>
+                    <div class="step-title">Piezas Gráficas con IA</div>
+                    <div>Diseña elementos visuales impactantes para promocionar el producto seleccionado usando herramientas de IA como DALL-E, Midjourney o Stable Diffusion</div>
+                </div>
+                
+                <div class="campaign-step">
+                    <div class="step-icon">🎥</div>
+                    <div class="step-title">Video Promocional</div>
+                    <div>Crea un video dinámico para redes sociales utilizando IA para guiones, voces y efectos visuales</div>
+                </div>
+                
+                <div class="campaign-step">
+                    <div class="step-icon">📱</div>
+                    <div class="step-title">Estrategia Digital</div>
+                    <div>Desarrolla la estrategia de distribución en redes sociales y plataformas digitales</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Instructions Section -->
+        <section class="workshop-section">
+            <h2 class="section-title">📚 Guía de Trabajo</h2>
+            
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 30px;">
+                <div class="activity-card">
+                    <h3 style="color: var(--neon-green); margin-bottom: 20px;">🚀 Para Comenzar</h3>
+                    <ol style="padding-left: 20px; line-height: 1.8;">
+                        <li>Forma equipos de 4-5 personas</li>
+                        <li>Explora la base de datos de 8 empresas</li>
+                        <li>Selecciona una empresa que les resulte interesante</li>
+                        <li>Elige el modelo de IA que utilizarán</li>
+                    </ol>
+                </div>
+                
+                <div class="activity-card">
+                    <h3 style="color: var(--neon-blue); margin-bottom: 20px;">⚡ Desarrollo</h3>
+                    <ol style="padding-left: 20px; line-height: 1.8;">
+                        <li>Completa las 4 actividades principales</li>
+                        <li>Documenta todos los prompts utilizados</li>
+                        <li>Guarda las respuestas de la IA</li>
+                        <li>Prepara la presentación de resultados</li>
+                    </ol>
+                </div>
+                
+                <div class="activity-card">
+                    <h3 style="color: var(--neon-pink); margin-bottom: 20px;">🎯 Entrega Final</h3>
+                    <ol style="padding-left: 20px; line-height: 1.8;">
+                        <li>Campaña completa con piezas gráficas</li>
+                        <li>Video promocional de 60-90 segundos</li>
+                        <li>Presentación de 10 minutos por equipo</li>
+                        <li>Documento con todos los prompts usados</li>
+                    </ol>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer style="text-align: center; padding: 60px 0; opacity: 0.7;">
+            <p style="font-size: 1.1rem;">💡 <strong>Recuerda:</strong> La creatividad no tiene límites cuando se combina con la inteligencia artificial</p>
+            <p style="margin-top: 10px;">🚀 ¡Que comience la revolución del marketing!</p>
+        </footer>
+    </div>
+
+    <script>
+        // Base de datos de empresas (modificada según solicitud)
+        const empresas = [
+            {familia: "Agoraeco", nombre: "Agoraeco", tipo: "Productos ecológicos", estado: "Emergente", empleados: 5, ingresos: 8500000, descripcion: "Agendas tipo folder reutilizables con hojas hechas de caña de azúcar con diseños innovadores y que se pueden personalizar"},
+            {familia: "Styleblood", nombre: "Styleblood", tipo: "Moda urbana", estado: "Emergente", empleados: 6, ingresos: 9200000, descripcion: "Marca de ropa que promueve el estilo de vida urbano, con diseños hechos por artistas emergentes"},
+            {familia: "Detalles de ensueño", nombre: "Detalles de ensueño", tipo: "Artesanías", estado: "Consolidado", empleados: 8, ingresos: 12500000, descripcion: "Creación de artesanías y accesorios a base de porcelanicron, con diseños minimalistas y en tendencia"},
+            {familia: "Letra Viva", nombre: "Letra Viva", tipo: "Productos educativos", estado: "Emergente", empleados: 4, ingresos: 6800000, descripcion: "Venta de animales plantables, un kit para plantar una mascota hecha con papel de semillas y que fomente el cuidado del medio ambiente y compromiso de los niños"},
+            {familia: "Nexus", nombre: "Nexus", tipo: "Accesorios tecnológicos", estado: "Emergente", empleados: 7, ingresos: 11000000, descripcion: "Venta de accesorios con impresión 3D a base de fécula de maíz, diseños personalizables y en tendencia"},
+            {familia: "Especial figuras", nombre: "Especial figuras", tipo: "Coleccionables", estado: "Consolidado", empleados: 9, ingresos: 14300000, descripcion: "Figuras coleccionables hechas a base de papel reciclado con diseños únicos y coloridos"},
+            {familia: "Ecoinfinty", nombre: "Ecoinfinty", tipo: "Material de escritura", estado: "Emergente", empleados: 5, ingresos: 7900000, descripcion: "Lápices infinitos con puntas de colores intercambiables que se pueden borrar fácilmente y tienen una duración de hasta 5 años con lindos diseños y buena calidad"},
+            {familia: "Glassy Gleam", nombre: "Glassy Gleam", tipo: "Iluminación decorativa", estado: "Consolidado", empleados: 10, ingresos: 15600000, descripcion: "Lámparas con diseños personalizados hechos en a base de materiales reciclados y luces que usan pilas intercambiables"}
+        ];
+
+        // Cargar empresas en la grid
+        function loadCompanies() {
+            const grid = document.getElementById('companiesGrid');
+            const select = document.getElementById('selectedCompany');
+            
+            empresas.forEach((empresa, index) => {
+                // Crear card para la grid
+                const card = document.createElement('div');
+                card.className = 'company-card';
+                card.onclick = () => selectCompany(index);
+                
+                const statusClass = `status-${empresa.estado.toLowerCase()}`;
+                
+                card.innerHTML = `
+                    <div class="company-name">${empresa.nombre}</div>
+                    <div class="company-type">${empresa.tipo} | ${empresa.familia}</div>
+                    <div class="company-status ${statusClass}">${empresa.estado}</div>
+                    <div class="company-description" style="margin-top: 15px; font-size: 0.9rem; opacity: 0.8;">
+                        ${empresa.descripcion}
+                    </div>
+                    <div style="margin-top: 10px; font-size: 0.9rem; opacity: 0.7;">
+                        ${empresa.empleados} empleados | ${empresa.ingresos.toLocaleString()} COP/mes
+                    </div>
+                `;
+                
+                grid.appendChild(card);
+                
+                // Agregar opción al select
+                const option = document.createElement('option');
+                option.value = index;
+                option.textContent = `${empresa.nombre} (${empresa.tipo})`;
+                select.appendChild(option);
+            });
+        }
+
+        // Seleccionar empresa
+        function selectCompany(index) {
+            document.getElementById('selectedCompany').value = index;
+            // Scroll al generador de prompts
+            document.querySelector('.prompt-generator').scrollIntoView({behavior: 'smooth'});
+        }
+
+        // Generar prompt personalizado
+        function generatePrompt() {
+            const companyIndex = document.getElementById('selectedCompany').value;
+            const aiModel = document.getElementById('aiModel').value;
+            const promptType = document.getElementById('promptType').value;
+            
+            if (!companyIndex) {
+                alert('Por favor selecciona una empresa primero');
+                return;
+            }
+            
+            const empresa = empresas[companyIndex];
+            const output = document.getElementById('promptOutput');
+            const btnText = document.getElementById('generateBtnText');
+            const loader = document.getElementById('generateLoader');
+            
+            // Mostrar loading
+            btnText.classList.add('hidden');
+            loader.classList.remove('hidden');
+            
+            // Simular generación (en la vida real haría la llamada a la IA)
+            setTimeout(() => {
+                let prompt = generatePromptContent(empresa, aiModel, promptType);
+                
+                output.textContent = prompt;
+                output.classList.add('fade-in');
+                
+                // Ocultar loading
+                btnText.classList.remove('hidden');
+                loader.classList.add('hidden');
+            }, 1500);
+        }
+
+        // Generar contenido del prompt
+        function generatePromptContent(empresa, aiModel, promptType) {
+            const modelPrefix = getModelPrefix(aiModel);
+            
+            switch(promptType) {
+                case 'strategy':
+                    return `${modelPrefix}
+
+ANÁLISIS ESTRATÉGICO PARA ${empresa.nombre.toUpperCase()}
+
+Empresa: ${empresa.nombre}
+Sector: ${empresa.tipo}
+Estado: ${empresa.estado}
+Descripción: ${empresa.descripcion}
+Empleados: ${empresa.empleados}
+Ingresos mensuales: ${empresa.ingresos.toLocaleString()} COP
+
+SOLICITUD:
+Como experto en estrategia empresarial y marketing, necesito que desarrolles:
+
+1. ESTRATEGIAS GENERALES diferenciadas para esta empresa según su estado actual (${empresa.estado}):
+   - Si es CONSOLIDADA: Estrategias de expansión, diversificación y liderazgo de mercado
+   - Si es EMERGENTE: Estrategias de crecimiento acelerado, posicionamiento y captación de mercado
+
+2. ANÁLISIS ESPECÍFICO considerando:
+   - Características del sector ${empresa.tipo}
+   - Producto/servicio: ${empresa.descripcion}
+   - Tamaño actual del equipo (${empresa.empleados} empleados)
+   - Capacidad financiera actual
+   - Oportunidades de mercado en Colombia
+
+3. PLAN DE ACCIÓN con:
+   - 5 estrategias prioritarias
+   - Timeline de implementación
+   - KPIs de medición
+   - Presupuesto estimado
+
+Por favor estructura tu respuesta de forma clara y accionable.`;
+
+                case 'products':
+                    return `${modelPrefix}
+
+ANÁLISIS DE PRODUCTOS Y SERVICIOS - ${empresa.nombre.toUpperCase()}
+
+Empresa: ${empresa.nombre}
+Sector: ${empresa.tipo}
+Estado: ${empresa.estado}
+Descripción: ${empresa.descripcion}
+
+SOLICITUD:
+Crea una tabla comparativa completa que incluya:
+
+PRODUCTOS/SERVICIOS ACTUALES:
+1. Lista los productos/servicios que probablemente ofrece esta empresa de ${empresa.tipo}
+2. Analiza sus características principales
+3. Identifica fortalezas y debilidades
+
+PROPUESTAS DE INNOVACIÓN:
+1. 5 nuevos productos/servicios que podrían incluir
+2. Productos digitales o con componente tecnológico
+3. Servicios complementarios que generen valor agregado
+4. Alianzas estratégicas para nuevas ofertas
+
+ANÁLISIS DE MERCADO:
+- Tendencias del sector ${empresa.tipo} en 2025
+- Necesidades no satisfechas del cliente
+- Oportunidades de diferenciación
+
+TABLA COMPARATIVA:
+| Producto/Servicio | Tipo (Actual/Propuesta) | Inversión Estimada | Potencial de Ingresos | Facilidad de Implementación | Diferenciación |
+
+Incluye recomendaciones específicas para esta empresa en estado ${empresa.estado}.`;
+
+                case 'alliances':
+                    return `${modelPrefix}
+
+ANÁLISIS DE ALIANZAS ESTRATÉGICAS - ${empresa.nombre.toUpperCase()}
+
+Empresa: ${empresa.nombre} (${empresa.tipo})
+Estado: ${empresa.estado}
+Descripción: ${empresa.descripcion}
+
+SOLICITUD:
+Identifica y analiza oportunidades de alianzas estratégicas:
+
+ANÁLISIS DE COMPLEMENTARIEDAD:
+1. De las 8 empresas en nuestra base de datos, identifica empresas que podrían formar alianzas estratégicas con ${empresa.nombre}
+
+2. Para cada alianza propuesta, explica:
+   - ¿Cómo se complementan los negocios?
+   - ¿Qué beneficios recibiría cada empresa?
+   - ¿Qué recursos o capacidades aportaría cada una?
+   - ¿Cuáles serían los productos/servicios conjuntos?
+
+TIPOS DE ALIANZAS:
+- Alianzas comerciales (cross-selling, bundling)
+- Alianzas operativas (compartir recursos, logística)
+- Alianzas tecnológicas (digitalización conjunta)
+- Alianzas de marketing (campañas conjuntas)
+
+PLAN DE IMPLEMENTACIÓN:
+- Priorización de alianzas (corto, mediano, largo plazo)
+- Estructura de colaboración propuesta
+- Métricas de éxito para cada alianza
+- Riesgos y mitigación
+
+CASOS ESPECÍFICOS:
+Desarrolla en detalle 2 alianzas prioritarias con plan de negocio conjunto.
+
+Considera el contexto colombiano y las particularidades del sector ${empresa.tipo}.`;
+
+                default:
+                    return 'Selecciona un tipo de prompt válido.';
+            }
+        }
+
+        // Prefijos según modelo de IA
+        function getModelPrefix(model) {
+            switch(model) {
+                case 'claude':
+                    return 'PROMPT OPTIMIZADO PARA CLAUDE (Anthropic):';
+                case 'chatgpt':
+                    return 'PROMPT OPTIMIZADO PARA CHATGPT (OpenAI):';
+                case 'gemini':
+                    return 'PROMPT OPTIMIZADO PARA GEMINI (Google):';
+                case 'deepseek':
+                    return 'PROMPT OPTIMIZADO PARA DEEPSEEK:';
+                default:
+                    return 'PROMPT PERSONALIZADO:';
+            }
+        }
+
+        // Copiar prompt al portapapeles
+        function copyPrompt() {
+            const output = document.getElementById('promptOutput');
+            navigator.clipboard.writeText(output.textContent).then(() => {
+                // Feedback visual
+                const btn = event.target;
+                const originalText = btn.textContent;
+                btn.textContent = '✅ ¡Copiado!';
+                btn.style.background = 'var(--warning-gradient)';
+                
+                setTimeout(() => {
+                    btn.textContent = originalText;
+                    btn.style.background = 'var(--success-gradient)';
+                }, 2000);
+            });
+        }
+
+        // Inicializar la aplicación
+        document.addEventListener('DOMContentLoaded', function() {
+            loadCompanies();
+            
+            // Agregar animaciones suaves al scroll
+            document.querySelectorAll('.activity-card, .company-card').forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-5px) scale(1.02)';
+                });
+                
+                card.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0) scale(1)';
+                });
+            });
+
+            // Efectos de parallax suave
+            window.addEventListener('scroll', function() {
+                const scrolled = window.pageYOffset;
+                const rate = scrolled * -0.5;
+                document.querySelector('.bg-animation').style.transform = `translateY(${rate}px)`;
+            });
+        });
+    </script>
+</body>
+</html>
